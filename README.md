@@ -1,4 +1,5 @@
-![B-Side Logo](/assets/preload/images/B-SideLogo.png)
+
+![B-Side Logo](/art/B-Side-stuff/B-SideLogo.png)
 
 # Friday Night Funkin': B-Sides
 ### This mod has been originally published by [Rozebud](https://twitter.com/helpme_thebigt) on [Gamebanana](https://gamebanana.com/mods/42724)
@@ -34,6 +35,9 @@ It also recolors the characters to make them look more fresh.
 > - Lunchbox - _JADS_
 > - Game Over - _Rozebud_
 > - Game Over (Pixel) - _Rozebud_
+
+#### Happy Funkin'
+![B-Side Logo](/art/B-Side-stuff/B-SideLogoGif.gif)
 
 # Credits
 ### Friday Night Funkin'
