@@ -237,14 +237,10 @@ class PlayState extends MusicBeatState
 		repReleases = 0;
 
 		// pre lowercasing the song name (create)
-		var songLowercase = switch (PlayState.SONG.song)
-			{
-				case 'Dad Battle':
-					StringTools.replace(PlayState.SONG.song," ", "").toLowerCase();
-				case 'Philly Nice':
-					StringTools.replace(PlayState.SONG.song," Nice", "").toLowerCase();
-				default:
-					StringTools.replace(PlayState.SONG.song," ", "-").toLowerCase();
+		var songLowercase = StringTools.replace(PlayState.SONG.song, " ", "-").toLowerCase();
+			switch (songLowercase) {
+				case 'dad-battle': songLowercase = 'dadbattle';
+				case 'philly-nice': songLowercase = 'philly';
 			}
 		
 		#if windows
@@ -1083,14 +1079,10 @@ class PlayState extends MusicBeatState
 		senpaiEvil.screenCenter();
 
 		// pre lowercasing the song name (schoolIntro)
-		var songLowercase = switch (PlayState.SONG.song)
-			{
-				case 'Dad Battle':
-					StringTools.replace(PlayState.SONG.song," ", "").toLowerCase();
-				case 'Philly Nice':
-					StringTools.replace(PlayState.SONG.song," Nice", "").toLowerCase();
-				default:
-					StringTools.replace(PlayState.SONG.song," ", "-").toLowerCase();
+		var songLowercase = StringTools.replace(PlayState.SONG.song, " ", "-").toLowerCase();
+			switch (songLowercase) {
+				case 'dad-battle': songLowercase = 'dadbattle';
+				case 'philly-nice': songLowercase = 'philly';
 			}
 		if (songLowercase == 'roses' || songLowercase == 'thorns')
 		{
@@ -1390,14 +1382,10 @@ class PlayState extends MusicBeatState
 		var playerCounter:Int = 0;
 
 		// pre lowercasing the song name (generateSong)
-		var songLowercase = switch (PlayState.SONG.song)
-			{
-				case 'Dad Battle':
-					StringTools.replace(PlayState.SONG.song," ", "").toLowerCase();
-				case 'Philly Nice':
-					StringTools.replace(PlayState.SONG.song," Nice", "").toLowerCase();
-				default:
-					StringTools.replace(PlayState.SONG.song," ", "-").toLowerCase();
+		var songLowercase = StringTools.replace(PlayState.SONG.song, " ", "-").toLowerCase();
+			switch (songLowercase) {
+				case 'dad-battle': songLowercase = 'dadbattle';
+				case 'philly-nice': songLowercase = 'philly';
 			}
 		// Per song offset check
 		#if windows
@@ -2470,8 +2458,16 @@ class PlayState extends MusicBeatState
 		vocals.volume = 0;
 		if (SONG.validScore)
 		{
+			// adjusting the highscore song name to be compatible
+			// would read original scores if we didn't change packages
+			var songHighscore = StringTools.replace(PlayState.SONG.song, " ", "-");
+			switch (songHighscore) {
+				case 'Dad-Battle': songHighscore = 'Dadbattle';
+				case 'Philly-Nice': songHighscore = 'Philly';
+			}
+
 			#if !switch
-			Highscore.saveScore(SONG.song, Math.round(songScore), storyDifficulty);
+			Highscore.saveScore(songHighscore, Math.round(songScore), storyDifficulty);
 			#end
 		}
 
@@ -2531,26 +2527,18 @@ class PlayState extends MusicBeatState
 
 					trace('LOADING NEXT SONG');
 					// pre lowercasing the next story song name
-					var nextSongLowercase = switch (PlayState.storyPlaylist[0])
-					{
-						case 'Dad Battle':
-							StringTools.replace(PlayState.storyPlaylist[0]," ", "").toLowerCase();
-						case 'Philly Nice':
-							StringTools.replace(PlayState.storyPlaylist[0]," Nice", "").toLowerCase();
-						default:
-							StringTools.replace(PlayState.storyPlaylist[0]," ", "-").toLowerCase();
-					}
+					var nextSongLowercase = StringTools.replace(PlayState.storyPlaylist[0], " ", "-").toLowerCase();
+						switch (nextSongLowercase) {
+							case 'dad-battle': nextSongLowercase = 'dadbattle';
+							case 'philly-nice': nextSongLowercase = 'philly';
+						}
 					trace(nextSongLowercase + difficulty);
 
 					// pre lowercasing the song name (endSong)
-					var songLowercase = switch (PlayState.SONG.song)
-					{
-						case 'Dad Battle':
-							StringTools.replace(PlayState.SONG.song," ", "").toLowerCase();
-						case 'Philly Nice':
-							StringTools.replace(PlayState.SONG.song," Nice", "").toLowerCase();
-						default:
-							StringTools.replace(PlayState.SONG.song," ", "-").toLowerCase();
+					var songLowercase = StringTools.replace(PlayState.SONG.song, " ", "-").toLowerCase();
+					switch (songLowercase) {
+						case 'dad-battle': songLowercase = 'dadbattle';
+						case 'philly-nice': songLowercase = 'philly';
 					}
 					if (songLowercase == 'eggnog')
 					{
@@ -2567,7 +2555,7 @@ class PlayState extends MusicBeatState
 					FlxTransitionableState.skipNextTransOut = true;
 					prevCamFollow = camFollow;
 
-					PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + difficulty, PlayState.storyPlaylist[0]);
+					PlayState.SONG = Song.loadFromJson(nextSongLowercase + difficulty, PlayState.storyPlaylist[0]);
 					FlxG.sound.music.stop();
 
 					LoadingState.loadAndSwitchState(new PlayState());
