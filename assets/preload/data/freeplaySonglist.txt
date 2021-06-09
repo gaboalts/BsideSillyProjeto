@@ -4,7 +4,6 @@ Fresh:dad:1
 Dad Battle:dad:1
 Spookeez:spooky:2
 South:spooky:2
-Monster:monster:2
 Pico:pico:3
 Philly Nice:pico:3
 Blammed:pico:3
