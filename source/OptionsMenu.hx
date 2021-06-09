@@ -56,9 +56,13 @@ class OptionsMenu extends MusicBeatState
 			new FPSOption("Toggle the FPS Counter"),
 			new ReplayOption("View replays"),
 			#end
+			new IntroOffsetOption("Toggle if the intro starts at the beginning or when you when you need to play."),
 			new FlashingLightsOption("Toggle flashing lights that can cause epileptic seizures and strain."),
-			new WatermarkOption("Enable and disable all watermarks from the engine."),
 			new BotPlay("Showcase your charts and mods with autoplay.")
+		]),
+		
+		new OptionCategory("", [
+			new Secret("???")
 		])
 		
 	];

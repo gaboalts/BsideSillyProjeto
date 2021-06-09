@@ -545,28 +545,6 @@ class CustomizeGameplay extends Option
 	}
 }
 
-class WatermarkOption extends Option
-{
-	public function new(desc:String)
-	{
-		super();
-		description = desc;
-	}
-
-	public override function press():Bool
-	{
-		Main.watermarks = !Main.watermarks;
-		FlxG.save.data.watermark = Main.watermarks;
-		display = updateDisplay();
-		return true;
-	}
-
-	private override function updateDisplay():String
-	{
-		return "Watermarks " + (Main.watermarks ? "on" : "off");
-	}
-}
-
 class OffsetMenu extends Option
 {
 	public function new(desc:String)
@@ -613,4 +591,47 @@ class BotPlay extends Option
 	
 	private override function updateDisplay():String
 		return "BotPlay " + (FlxG.save.data.botplay ? "on" : "off");
+}
+class IntroOffsetOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+	
+	public override function press():Bool
+	{
+		FlxG.save.data.disableIntroOffset = !FlxG.save.data.disableIntroOffset;
+		trace('IntroOffsetOption : ' + FlxG.save.data.disableIntroOffset);
+		display = updateDisplay();
+		return true;
+	}
+	
+	private override function updateDisplay():String
+		return "Intro Offset: " + (FlxG.save.data.disableIntroOffset ? "at song start" : "at notes");
+}
+class Secret extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+	
+	public override function press():Bool
+	{
+		FlxG.sound.play(Paths.sound("fartsoundlol"));
+		if (!FlxG.save.data.secret)
+		{
+			FlxG.save.data.secret = true;
+			trace('First Time Secret : ' + FlxG.save.data.secret);
+		}
+		description = "haha bob";
+		display = updateDisplay();
+		return true;
+	}
+	
+	private override function updateDisplay():String
+		return "Secret" + (FlxG.save.data.secret ? " Discovered" : "");
 }

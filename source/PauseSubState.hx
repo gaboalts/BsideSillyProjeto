@@ -28,6 +28,8 @@ class PauseSubState extends MusicBeatSubstate
 	var perSongOffset:FlxText;
 	
 	var offsetChanged:Bool = false;
+	
+	static var detailsText:String = "";
 
 	public function new(x:Float, y:Float)
 	{
@@ -38,21 +40,31 @@ class PauseSubState extends MusicBeatSubstate
 		pauseMusic.play(false, FlxG.random.int(0, Std.int(pauseMusic.length / 2)));
 
 		FlxG.sound.list.add(pauseMusic);
+		
+		if (PlayState.isStoryMode){ detailsText = "Story Mode: Week " + PlayState.storyWeek; }
+		else { detailsText = "Freeplay"; }
 
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		bg.alpha = 0;
 		bg.scrollFactor.set();
 		add(bg);
 
-		var levelInfo:FlxText = new FlxText(20, 15, 0, "", 32);
-		levelInfo.text += PlayState.SONG.song;
+		var gameInfo:FlxText = new FlxText(20, 15, 0, "", 32);
+		gameInfo.text += detailsText;
+		gameInfo.scrollFactor.set();
+		gameInfo.setFormat(Paths.font("vcr.ttf"), 32);
+		gameInfo.updateHitbox();
+		add(gameInfo);
+
+		var levelInfo:FlxText = new FlxText(20, 15 + 32, 0, "", 32);
+		levelInfo.text += "Song: " + PlayState.SONG.song;
 		levelInfo.scrollFactor.set();
 		levelInfo.setFormat(Paths.font("vcr.ttf"), 32);
 		levelInfo.updateHitbox();
 		add(levelInfo);
 
-		var levelDifficulty:FlxText = new FlxText(20, 15 + 32, 0, "", 32);
-		levelDifficulty.text += CoolUtil.difficultyString();
+		var levelDifficulty:FlxText = new FlxText(20, 15 + 64, 0, "", 32);
+		levelDifficulty.text += "Diffculty: " + CoolUtil.difficultyString();
 		levelDifficulty.scrollFactor.set();
 		levelDifficulty.setFormat(Paths.font('vcr.ttf'), 32);
 		levelDifficulty.updateHitbox();
@@ -60,13 +72,16 @@ class PauseSubState extends MusicBeatSubstate
 
 		levelDifficulty.alpha = 0;
 		levelInfo.alpha = 0;
+		gameInfo.alpha = 0;
 
+		gameInfo.x = FlxG.width - (gameInfo.width + 20);
 		levelInfo.x = FlxG.width - (levelInfo.width + 20);
 		levelDifficulty.x = FlxG.width - (levelDifficulty.width + 20);
 
 		FlxTween.tween(bg, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
-		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
-		FlxTween.tween(levelDifficulty, {alpha: 1, y: levelDifficulty.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
+		FlxTween.tween(gameInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
+		FlxTween.tween(levelInfo, {alpha: 1, y: levelInfo.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
+		FlxTween.tween(levelDifficulty, {alpha: 1, y: levelDifficulty.y + 10}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
 
 		grpMenuShit = new FlxTypedGroup<Alphabet>();
 		add(grpMenuShit);

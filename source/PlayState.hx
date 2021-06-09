@@ -91,7 +91,7 @@ class PlayState extends MusicBeatState
 	var halloweenLevel:Bool = false;
 
 	var songLength:Float = 0;
-	var kadeEngineWatermark:FlxText;
+	var songInfo:FlxText;
 	
 	#if windows
 	// Discord RPC variables
@@ -215,7 +215,7 @@ class PlayState extends MusicBeatState
 	public function addObject(object:FlxBasic) { add(object); }
 	public function removeObject(object:FlxBasic) { remove(object); }
 
-
+	
 	override public function create()
 	{
 		instance = this;
@@ -251,17 +251,20 @@ class PlayState extends MusicBeatState
 		#end
 
 		trace('Mod chart: ' + executeModchart + " - " + Paths.lua(songLowercase + "/modchart"));
+		
+		if (isStoryMode){ detailsText = "Story Mode: Week " + storyWeek; }
+		else { detailsText = "Freeplay"; }
 
 		#if windows
 		// Making difficulty text for Discord Rich Presence.
 		switch (storyDifficulty)
 		{
 			case 0:
-				storyDifficultyText = "Easy";
+				storyDifficultyText = "Easier";
 			case 1:
-				storyDifficultyText = "Normal";
+				storyDifficultyText = "Standard";
 			case 2:
-				storyDifficultyText = "Hard";
+				storyDifficultyText = "Flip";
 		}
 
 		iconRPC = SONG.player2;
@@ -275,16 +278,6 @@ class PlayState extends MusicBeatState
 				iconRPC = 'monster';
 			case 'mom-car':
 				iconRPC = 'mom';
-		}
-
-		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
-		if (isStoryMode)
-		{
-			detailsText = "Story Mode: Week " + storyWeek;
-		}
-		else
-		{
-			detailsText = "Freeplay";
 		}
 
 		// String for when the game is paused
@@ -910,10 +903,10 @@ class PlayState extends MusicBeatState
 				songPosBar = new FlxBar(songPosBG.x + 4, songPosBG.y + 4, LEFT_TO_RIGHT, Std.int(songPosBG.width - 8), Std.int(songPosBG.height - 8), this,
 					'songPositionBar', 0, 90000);
 				songPosBar.scrollFactor.set();
-				songPosBar.createFilledBar(FlxColor.GRAY, FlxColor.LIME);
+				songPosBar.createFilledBar(FlxColor.GRAY, 0xFFEDBC75);
 				add(songPosBar);
 	
-				var songName = new FlxText(songPosBG.x + (songPosBG.width / 2) - 20,songPosBG.y,0,SONG.song, 16);
+				var songName = new FlxText(songPosBG.x + (songPosBG.width / 2) - (SONG.song.length * 5),songPosBG.y,0,SONG.song, 16);
 				if (FlxG.save.data.downscroll)
 					songName.y -= 3;
 				songName.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
@@ -932,18 +925,18 @@ class PlayState extends MusicBeatState
 		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
 			'health', 0, 2);
 		healthBar.scrollFactor.set();
-		healthBar.createFilledBar(0xFFFF0000, 0xFF66FF33);
+		healthBar.createFilledBar(0xFFFFA5AE, 0xFF0BCECE);
 		// healthBar
 		add(healthBar);
 
-		// Add Kade Engine watermark
-		kadeEngineWatermark = new FlxText(4,healthBarBG.y + 50,0,SONG.song + " " + (storyDifficulty == 2 ? "Hard" : storyDifficulty == 1 ? "Normal" : "Easy") + (Main.watermarks ? " - KE " + MainMenuState.kadeEngineVer : ""), 16);
-		kadeEngineWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
-		kadeEngineWatermark.scrollFactor.set();
-		add(kadeEngineWatermark);
+		//add Song Info
+		songInfo = new FlxText(4,healthBarBG.y + 50,0,SONG.song + " B-Side - " + (storyDifficulty == 2 ? "Flip" : storyDifficulty == 1 ? "Standard" : "Easier"), 16);
+		songInfo.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
+		songInfo.scrollFactor.set();
+		add(songInfo);
 
 		if (FlxG.save.data.downscroll)
-			kadeEngineWatermark.y = FlxG.height * 0.9 + 45;
+			songInfo.y = FlxG.height * 0.9 + 45;
 
 		scoreTxt = new FlxText(FlxG.width / 2 - 235, healthBarBG.y + 50, 0, "", 20);
 		if (!FlxG.save.data.accuracyDisplay)
@@ -990,7 +983,7 @@ class PlayState extends MusicBeatState
 			songPosBG.cameras = [camHUD];
 			songPosBar.cameras = [camHUD];
 		}
-		kadeEngineWatermark.cameras = [camHUD];
+		songInfo.cameras = [camHUD];
 		if (loadRep)
 			replayTxt.cameras = [camHUD];
 
@@ -1160,6 +1153,8 @@ class PlayState extends MusicBeatState
 	public static var luaModchart:ModchartState = null;
 	#end
 
+	private static var foundIntroOffset:Bool = false;
+
 	function startCountdown():Void
 	{
 		inCutscene = false;
@@ -1182,12 +1177,46 @@ class PlayState extends MusicBeatState
 		Conductor.songPosition -= Conductor.crochet * 5;
 
 		var swagCounter:Int = 0;
-
-		startTimer = new FlxTimer().start(Conductor.crochet / 1000, function(tmr:FlxTimer)
-		{
+		
+		foundIntroOffset = false;
+		var introOffset:Int = 0;
+		
+		if(!FlxG.save.data.disableIntroOffset){
+		// pre lowercasing the song name (startCountdown)
+			var songLowercase = StringTools.replace(PlayState.SONG.song, " ", "-").toLowerCase();
+			switch (songLowercase) {
+				case 'dad-battle': songLowercase = 'dadbattle';
+				case 'philly-nice': songLowercase = 'philly';
+			}
+			var songPathTwo = 'assets/data/' + songLowercase + '/';
+			for(file in sys.FileSystem.readDirectory(songPathTwo))
+			{
+				var pathTwo = haxe.io.Path.join([songPathTwo, file]);
+				if(!sys.FileSystem.isDirectory(pathTwo))
+				{
+					if(pathTwo.endsWith('.introOffset'))
+					{
+						foundIntroOffset = true;
+						trace('Found introOffset file: ' + pathTwo);
+						introOffset = Std.parseInt(file.substring(0, file.indexOf('.introOffset')));
+						break;
+					}
+				}
+			}
+		}
+		if(foundIntroOffset){
 			dad.dance();
 			gf.dance();
 			boyfriend.playAnim('idle');
+		}
+
+		startTimer = new FlxTimer().start(Conductor.crochet / 1000, function(tmr:FlxTimer)
+		{
+			if(!foundIntroOffset){
+				dad.dance();
+				gf.dance();
+				boyfriend.playAnim('idle');
+			}
 
 			var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
 			introAssets.set('default', ['ready', "set", "go"]);
@@ -1214,8 +1243,7 @@ class PlayState extends MusicBeatState
 				}
 			}
 
-			switch (swagCounter)
-
+			switch (swagCounter - introOffset)
 			{
 				case 0:
 					FlxG.sound.play(Paths.sound('intro3' + altSuffix), 0.6);
@@ -1273,12 +1301,11 @@ class PlayState extends MusicBeatState
 						}
 					});
 					FlxG.sound.play(Paths.sound('introGo' + altSuffix), 0.6);
-				case 4:
 			}
 
 			swagCounter += 1;
 			// generateSong('fresh');
-		}, 5);
+		}, 5 + introOffset);
 	}
 
 	var previousFrameTime:Int = 0;
@@ -1323,10 +1350,10 @@ class PlayState extends MusicBeatState
 				'songPositionBar', 0, songLength - 1000);
 			songPosBar.numDivisions = 1000;
 			songPosBar.scrollFactor.set();
-			songPosBar.createFilledBar(FlxColor.GRAY, FlxColor.LIME);
+			songPosBar.createFilledBar(FlxColor.GRAY, 0xFFEDBC75);
 			add(songPosBar);
 
-			var songName = new FlxText(songPosBG.x + (songPosBG.width / 2) - 20,songPosBG.y,0,SONG.song, 16);
+			var songName = new FlxText(songPosBG.x + (songPosBG.width / 2) - (SONG.song.length * 5),songPosBG.y,0,SONG.song, 16);
 			if (FlxG.save.data.downscroll)
 				songName.y -= 3;
 			songName.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
@@ -1742,7 +1769,7 @@ class PlayState extends MusicBeatState
 			if (luaModchart.getVar("showOnlyStrums",'bool'))
 			{
 				healthBarBG.visible = false;
-				kadeEngineWatermark.visible = false;
+				songInfo.visible = false;
 				healthBar.visible = false;
 				iconP1.visible = false;
 				iconP2.visible = false;
@@ -1751,7 +1778,7 @@ class PlayState extends MusicBeatState
 			else
 			{
 				healthBarBG.visible = true;
-				kadeEngineWatermark.visible = true;
+				songInfo.visible = true;
 				healthBar.visible = true;
 				iconP1.visible = true;
 				iconP2.visible = true;
@@ -1907,11 +1934,16 @@ class PlayState extends MusicBeatState
 
 		#end
 
+		var songStartEarly:Int = 1;
+		if (foundIntroOffset) {
+			songStartEarly += 2;
+		}
+		
 		if (startingSong)
 		{
 			if (startedCountdown)
 			{
-				Conductor.songPosition += FlxG.elapsed * 1000;
+				Conductor.songPosition += FlxG.elapsed * 1000 * songStartEarly;
 				if (Conductor.songPosition >= 0)
 					startSong();
 			}

@@ -40,7 +40,7 @@ class LoadReplayState extends MusicBeatState
         controlsStrings.sort(Reflect.compare);
 
         addWeek(['Bopeebo', 'Fresh', 'Dadbattle'], 1, ['dad']);
-        addWeek(['Spookeez', 'South', 'Monster'], 2, ['spooky']);
+        addWeek(['Spookeez', 'South'], 2, ['spooky']);
         addWeek(['Pico', 'Philly', 'Blammed'], 3, ['pico']);
 
         addWeek(['Satin-Panties', 'High', 'Milf'], 4, ['mom']);
@@ -54,7 +54,7 @@ class LoadReplayState extends MusicBeatState
             var string:String = controlsStrings[i];
             actualNames[i] = string;
 			var rep:Replay = Replay.LoadReplay(string);
-            controlsStrings[i] = string.split("time")[0] + " " + (rep.replay.songDiff == 2 ? "HARD" : rep.replay.songDiff == 1 ? "EASY" : "NORMAL");
+            controlsStrings[i] = string.split("time")[0] + " " + (rep.replay.songDiff == 2 ? "FLIP" : rep.replay.songDiff == 1 ? "EASIER" : "STANDARD");
         }
 
         if (controlsStrings.length == 0)
