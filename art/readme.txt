@@ -33,7 +33,7 @@ Use the music in videos you do, use art, ANYTHING. GO CRAZY BRO.
 
 If you do make any sort of video, it would be a bro move if you linked the game and spread the word
 
-Play On Newgrounds - https://www.newgrounds.com/portal/view/770371
+Play On Newgrounds - https://newgrounds.com/portal/view/770371
 Support on Itch.io - https://ninja-muffin24.itch.io/funkin
 
 If not no biggie we don't fully hate you only kinda no biggie.
@@ -51,6 +51,9 @@ It's made in Haxe / HaxeFlixel
 
 MUSIC IS ON SPOTIFY AND BANDCAMP AND EVERYWHERE ELSE PROB TOO
 https://kawaisprite.bandcamp.com/album/friday-night-funkin-ost-vol-1
+
+B-SIDE-REMIXES ACTUALLY USED IN THIS MOD
+https://youtube.com/playlist?list=PL4pZAwHWpVFx2_DZFvLCwilXOUswyBHkJ
 
 
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
@@ -80,6 +83,11 @@ B-Sides Original Mod is made by Rozebud (Music, Charting, and Art), JADS (Music,
 https://twitter.com/helpme_thebigt
 https://twitter.com/Aw3somejds
 https://twitter.com/cval_brown
+
+
+Porter of the B-Side-remixes and modder of the Engine used here is Lucky56 (Smiler)
+
+https://twitter.com/real_lucky56
 
 
 Final important thing, this is made with the support and love to and from Newgrounds.com.
