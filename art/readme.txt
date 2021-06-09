@@ -16,12 +16,10 @@
                  /          _/           /             
 
 HEY
-Thanks for downloadin Friday Night FUNKIN'
-If you downloaded this from any other place than ninja-muffin24.itch.io/FUNKIN
-You might be in DANGER!!! 
+Thanks for downloadin Friday Night FUNKIN': B-Sides
 
-The Itch.io release is the only official source for the desktop (PC, Mac, Linux) versions of the game!
-As of right now, the game is FREE! If you paid for it, you got SCAMMED!
+If you downloaded this from anywhere else exept github.com/Lucky-56/FNF-KE-B-Side-remixes
+then you might me in DANGER !
 
 Now that that's out of the way....
 THANKS FOR DOWNLOADIN. 
@@ -46,7 +44,8 @@ If not no biggie we don't fully hate you only kinda no biggie.
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 
 If you wanna dig around, the game is fully open source on Github
-https://github.com/ninjamuffin99/Funkin
+https://github.com/ninjamuffin99/Funkin ORIGINAL GAME
+https://github.com/Lucky-56/FNF-KE-B-Side-remixes THIS MOD
 
 It's made in Haxe / HaxeFlixel
 
@@ -68,6 +67,19 @@ https://twitter.com/evilsk8r
 Pico is created by Tom Fulp
 Skid and Pump are created by SrPelo
 BassetFilms did music for lemon monster songs
+
+
+Kade Engine is made by KadeDeveloper and the community on Github
+https://github.com/KadeDev/Kade-Engine
+
+https://twitter.com/KadeDeveloper
+
+
+B-Sides Original Mod is made by Rozebud (Music, Charting, and Art), JADS (Music, Charting), and Cval (Additional Art, Charting)
+
+https://twitter.com/helpme_thebigt
+https://twitter.com/Aw3somejds
+https://twitter.com/cval_brown
 
 
 Final important thing, this is made with the support and love to and from Newgrounds.com.
