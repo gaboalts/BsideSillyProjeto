@@ -48,9 +48,9 @@ class Song
 	{
 		trace(jsonInput);
 		
-		trace('loading ' + folder + '/' + jsonInput.toLowerCase());
+		trace('loading ' + folder.toLowerCase() + '/' + jsonInput.toLowerCase());
 
-		var rawJson = Assets.getText(Paths.json(folder + '/' + jsonInput.toLowerCase())).trim();
+		var rawJson = Assets.getText(Paths.json(folder.toLowerCase() + '/' + jsonInput.toLowerCase())).trim();
 
 		while (!rawJson.endsWith("}"))
 		{
