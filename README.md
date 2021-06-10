@@ -4,6 +4,30 @@
 # Friday Night Funkin': B-Sides
 ### This mod has been originally published by [Rozebud](https://twitter.com/helpme_thebigt) on [Gamebanana](https://gamebanana.com/mods/42724)
 ## About this mod
+### What does this version of the mod add that the [Gamebanana]() version or the [original](https://gamebanana.com/mods/42724) doesn't?
+- a cool discord rich presence
+- a secret found in options
+- a toggleable intro offset (either default or play the intro when you actually need to play)
+- b-side 3, 2, 1, go and 3, 2, 1, date
+- b-side gitaroo pause screen
+- b-side health and songpos bar colors
+- b-side icon of the exe
+- centered icons
+- cool black to blue gradient on title screen
+- cool new info on pause screen and bottom left when playing
+- do NOT readme is now NEVER readme, to maybe catch some eyes
+- new intro texts
+- remove donate button
+- remove kade engine update check
+- remove monster from week 2 as is doesn't actually have a b-side remix
+- remove original intro texts
+- remove unnecessary files (mom (not momCar), monster (not monster-christmas))
+- remove unnecessary files (monster's chart + song)
+- updated README
+- updated do NOT readme
+
+---
+### Original Mod Description
 Remixes the games music and gives the visuals a fresh coat of paint.
 
 Replaces Tutorial and week 1 to 6 with remixes of their music.
