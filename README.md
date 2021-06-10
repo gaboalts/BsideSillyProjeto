@@ -4,7 +4,7 @@
 # Friday Night Funkin': B-Sides
 ### This mod has been originally published by [Rozebud](https://twitter.com/helpme_thebigt) on [Gamebanana](https://gamebanana.com/mods/42724)
 ## About this mod
-### What does this version of the mod add that the [Gamebanana]() version or the [original](https://gamebanana.com/mods/42724) doesn't?
+### What does this version of the mod add that the [original](https://gamebanana.com/mods/42724) doesn't?
 - a cool discord rich presence
 - a secret found in options
 - a toggleable intro offset (either default or play the intro when you actually need to play)
