@@ -40,6 +40,7 @@ class MainMenuState extends MusicBeatState
 	public static var nightly:String = "";
 
 	public static var kadeEngineVer:String = "1.5.1" + nightly;
+	public static var bSideVer:String = "4.2";
 	public static var gameVer:String = "0.2.7.1";
 
 	var magenta:FlxSprite;
@@ -119,7 +120,7 @@ class MainMenuState extends MusicBeatState
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
-		var versionShitTwo:FlxText = new FlxText(5, FlxG.height - 41, 0, "B-Side Remixes", 12);
+		var versionShitTwo:FlxText = new FlxText(5, FlxG.height - 41, 0, "B-Side Remixes - v" + bSideVer, 12);
 		versionShitTwo.scrollFactor.set();
 		versionShitTwo.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShitTwo);
