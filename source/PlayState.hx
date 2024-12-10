@@ -252,8 +252,10 @@ class PlayState extends MusicBeatState
 
 		trace('Mod chart: ' + executeModchart + " - " + Paths.lua(songLowercase + "/modchart"));
 		
+		#if windows
 		if (isStoryMode){ detailsText = "Story Mode: Week " + storyWeek; }
 		else { detailsText = "Freeplay"; }
+		#end
 
 		#if windows
 		// Making difficulty text for Discord Rich Presence.
