@@ -1916,10 +1916,12 @@ class PlayState extends MusicBeatState
 
 		#end
 
+		#if !mobile
 		var songStartEarly:Int = 1;
 		if (foundIntroOffset) {
 			songStartEarly += 2;
 		}
+		#end
 		
 		if (startingSong)
 		{
