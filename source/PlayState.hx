@@ -1158,9 +1158,7 @@ class PlayState extends MusicBeatState
 	#if windows
 	public static var luaModchart:ModchartState = null;
 	#end
-
-	private static var foundIntroOffset:Bool = false;
-
+	
 	function startCountdown():Void
 	{
 		inCutscene = false;
@@ -1173,11 +1171,17 @@ class PlayState extends MusicBeatState
 		generateStaticArrows(1);
 
 
-		#if windows
+		#if cpp
+		// pre lowercasing the song name (startCountdown)
+		var songLowercase = StringTools.replace(PlayState.SONG.song, " ", "-").toLowerCase();
+		switch (songLowercase) {
+			case 'dad-battle': songLowercase = 'dadbattle';
+			case 'philly-nice': songLowercase = 'philly';
+		}
 		if (executeModchart)
 		{
 			luaModchart = ModchartState.createModchartState();
-			luaModchart.executeState('start',[PlayState.SONG.song]);
+			luaModchart.executeState('start',[songLowercase]);
 		}
 		#end
 
@@ -1187,46 +1191,15 @@ class PlayState extends MusicBeatState
 		Conductor.songPosition -= Conductor.crochet * 5;
 
 		var swagCounter:Int = 0;
-		
-		foundIntroOffset = false;
-		var introOffset:Int = 0;
-		
-		if(!FlxG.save.data.disableIntroOffset){
-		// pre lowercasing the song name (startCountdown)
-			var songLowercase = StringTools.replace(PlayState.SONG.song, " ", "-").toLowerCase();
-			switch (songLowercase) {
-				case 'dad-battle': songLowercase = 'dadbattle';
-				case 'philly-nice': songLowercase = 'philly';
-			}
-			var songPathTwo = 'assets/data/' + songLowercase + '/';
-			for(file in sys.FileSystem.readDirectory(songPathTwo))
-			{
-				var pathTwo = haxe.io.Path.join([songPathTwo, file]);
-				if(!sys.FileSystem.isDirectory(pathTwo))
-				{
-					if(pathTwo.endsWith('.introOffset'))
-					{
-						foundIntroOffset = true;
-						trace('Found introOffset file: ' + pathTwo);
-						introOffset = Std.parseInt(file.substring(0, file.indexOf('.introOffset')));
-						break;
-					}
-				}
-			}
-		}
-		if(foundIntroOffset){
-			dad.dance();
-			gf.dance();
-			boyfriend.playAnim('idle');
-		}
 
 		startTimer = new FlxTimer().start(Conductor.crochet / 1000, function(tmr:FlxTimer)
 		{
-			if(!foundIntroOffset){
-				dad.dance();
-				gf.dance();
-				boyfriend.playAnim('idle');
-			}
+			dad.dance();
+			gf.dance();
+			boyfriend.playAnim('idle');
+			resetCharacter();
+			switchCharacter('bf');
+			switchCharacter('dad');
 
 			var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
 			introAssets.set('default', ['ready', "set", "go"]);
@@ -1253,7 +1226,8 @@ class PlayState extends MusicBeatState
 				}
 			}
 
-			switch (swagCounter - introOffset)
+			switch (swagCounter)
+
 			{
 				case 0:
 					FlxG.sound.play(Paths.sound('intro3' + altSuffix), 0.6);
@@ -1311,11 +1285,12 @@ class PlayState extends MusicBeatState
 						}
 					});
 					FlxG.sound.play(Paths.sound('introGo' + altSuffix), 0.6);
+				case 4:
 			}
 
 			swagCounter += 1;
 			// generateSong('fresh');
-		}, 5 + introOffset);
+		}, 5);
 	}
 
 	var previousFrameTime:Int = 0;
