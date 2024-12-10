@@ -986,6 +986,10 @@ class PlayState extends MusicBeatState
 		songInfo.cameras = [camHUD];
 		if (loadRep)
 			replayTxt.cameras = [camHUD];
+			
+		#if mobile
+		addMobileControls();
+		#end
 
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
@@ -1158,6 +1162,10 @@ class PlayState extends MusicBeatState
 	function startCountdown():Void
 	{
 		inCutscene = false;
+		
+		#if mobile
+		mobileControls.visible = true;
+		#end
 
 		generateStaticArrows(0);
 		generateStaticArrows(1);
@@ -1847,7 +1855,7 @@ class PlayState extends MusicBeatState
 		if (!FlxG.save.data.accuracyDisplay)
 			scoreTxt.text = "Score: " + songScore;
 
-		if (FlxG.keys.justPressed.ENTER && startedCountdown && canPause)
+		if (FlxG.keys.justPressed.ENTER #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
 		{
 			persistentUpdate = false;
 			persistentDraw = true;
@@ -2465,6 +2473,7 @@ class PlayState extends MusicBeatState
 
 	function endSong():Void
 	{
+		#if !mobile
 		if (!loadRep)
 			rep.SaveReplay(saveNotes);
 		else
@@ -2473,6 +2482,7 @@ class PlayState extends MusicBeatState
 			FlxG.save.data.scrollSpeed = 1;
 			FlxG.save.data.downscroll = false;
 		}
+		#end
 
 		if (FlxG.save.data.fpsCap > 290)
 			(cast (Lib.current.getChildAt(0), Main)).setFPSCap(290);
@@ -2488,6 +2498,9 @@ class PlayState extends MusicBeatState
 		canPause = false;
 		FlxG.sound.music.volume = 0;
 		vocals.volume = 0;
+		#if mobile
+		mobileControls.visible = false;
+		#end
 		if (SONG.validScore)
 		{
 			// adjusting the highscore song name to be compatible

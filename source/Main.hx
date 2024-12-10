@@ -73,7 +73,7 @@ class Main extends Sprite
 			gameHeight = Math.ceil(stageHeight / zoom);
 		}
 
-		#if !debug
+		#if !windows
 		initialState = TitleState;
 		#end
 
@@ -81,7 +81,7 @@ class Main extends Sprite
 
 		addChild(game);
 
-		#if !mobile
+		#if !windows
 		fpsCounter = new FPS(10, 3, 0xFFFFFF);
 		addChild(fpsCounter);
 		toggleFPS(FlxG.save.data.fps);
