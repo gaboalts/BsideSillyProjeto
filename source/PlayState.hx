@@ -1171,7 +1171,7 @@ class PlayState extends MusicBeatState
 		generateStaticArrows(1);
 
 
-		#if cpp
+		#if windows
 		// pre lowercasing the song name (startCountdown)
 		var songLowercase = StringTools.replace(PlayState.SONG.song, " ", "-").toLowerCase();
 		switch (songLowercase) {
@@ -1197,9 +1197,6 @@ class PlayState extends MusicBeatState
 			dad.dance();
 			gf.dance();
 			boyfriend.playAnim('idle');
-			resetCharacter();
-			switchCharacter('bf');
-			switchCharacter('dad');
 
 			var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
 			introAssets.set('default', ['ready', "set", "go"]);
