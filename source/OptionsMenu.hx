@@ -42,6 +42,7 @@ class OptionsMenu extends MusicBeatState
 		]),
 		
 		new OptionCategory("Misc", [
+			new IntroOffsetOption("Toggle if the intro starts at the beginning or when you when you need to play."),
 			new FPSOption("Toggle the FPS Counter"),
 			new FlashingLightsOption("Toggle flashing lights that can cause epileptic seizures and strain."),
 			new BotPlay("Showcase your charts and mods with autoplay.")
