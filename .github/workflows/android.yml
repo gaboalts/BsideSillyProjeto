@@ -45,18 +45,18 @@ jobs:
           haxelib install hxcpp 4.2.1 > /dev/null --quiet
           haxelib install lime 7.9.0
           haxelib install openfl 9.1.0
-          haxelib install flixel 5.2.2
+          haxelib install flixel 4.11.0
           haxelib install flixel-tools
           haxelib install flixel-ui
-          haxelib install flixel-addons 3.0.2
           haxelib install tjson
-          haxelib install hxCodec 2.6.1
-          haxelib install hscript  
+          haxelib install flixel-addons 3.0.2
+          haxelib git hxCodec https://github.com/SPLCoding/hxCodec-but-it-works-xd.git
+          haxelib git linc_luajit https://github.com/Sirox228/linc_luajit
+          haxelib install hscript
           haxelib install actuate
           haxelib install newgrounds 1.3.0
-          haxelib git linc_luajit https://github.com/Sirox228/linc_luajit.git
-          haxelib git extension-webm https://github.com/Sirox228/extension-webm --quiet
-          haxelib git extension-androidtools https://github.com/MaysLastPlay77/extension-androidtools
+          haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
+          haxelib install hxcpp-debug-server
           haxelib list
 
       - name: Configure Android
@@ -66,10 +66,11 @@ jobs:
           haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_SETUP true
-          haxelib set flixel-addons 2.11.0
-          haxelib set flixel 4.11.0
           haxelib set openfl 9.1.0
           haxelib set lime 7.9.0
+          haxelib set flixel 4.11.0
+          haxelib set flixel-addons 3.0.2
+          haxelib set hxcpp 4.2.1
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
