@@ -176,8 +176,12 @@ class PlayState extends MusicBeatState
 	private var camGame:FlxCamera;
 	public var cameraSpeed:Float = 1;
 	
+	public var tweenCamIn:Float;
+	
 	var notesHitArray:Array<Date> = [];
 	var currentFrames:Int = 0;
+	
+	var camPos:Float = 0.0;
 
 	public var dialogue:Array<String> = ['dad:blah blah blah', 'bf:coolswag'];
 
