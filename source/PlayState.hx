@@ -1729,11 +1729,6 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	function tweenCamIn():Void
-	{
-		FlxTween.tween(FlxG.camera, {zoom: 1.3}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.elasticInOut});
-	}
-
 	override function openSubState(SubState:FlxSubState)
 	{
 		if (paused)
