@@ -2168,10 +2168,6 @@ class PlayState extends MusicBeatState
 			if (luaModchart != null)
 				luaModchart.setVar("mustHit",PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection);
 			#end
-
-				if (dad.curCharacter == 'mom')
-					vocals.volume = 1;
-			}
 		}
 
 		if (camZooming)
