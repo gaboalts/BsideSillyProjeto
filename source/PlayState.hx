@@ -1762,6 +1762,7 @@ class PlayState extends MusicBeatState
 				if(char != null && char.colorTween != null) {
 					char.colorTween.active = false;
 				}
+			}
 
 			#if windows
 			DiscordClient.changePresence("PAUSED on " + SONG.song + " (" + storyDifficultyText + ") " + Ratings.GenerateLetterRank(accuracy), "Acc: " + HelperFunctions.truncateFloat(accuracy, 2) + "% | Score: " + songScore + " | Misses: " + misses  , iconRPC);
