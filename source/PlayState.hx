@@ -176,13 +176,9 @@ class PlayState extends MusicBeatState
 	private var camGame:FlxCamera;
 	public var cameraSpeed:Float = 1;
 	
-	public var tweenCamIn:Float;
-	
 	var notesHitArray:Array<Date> = [];
 	var currentFrames:Int = 0;
 	
-	var camPos:Float = 0.0;
-
 	public var dialogue:Array<String> = ['dad:blah blah blah', 'bf:coolswag'];
 
 	var halloweenBG:FlxSprite;
@@ -926,18 +922,6 @@ class PlayState extends MusicBeatState
 
 		camFollow = new FlxPoint();
 		camFollowPos = new FlxObject(0, 0, 1, 1);
-
-		snapCamFollowToPos(camPos.x, camPos.y);
-		if (prevCamFollow != null)
-		{
-			camFollow = prevCamFollow;
-			prevCamFollow = null;
-		}
-		if (prevCamFollowPos != null)
-		{
-			camFollowPos = prevCamFollowPos;
-			prevCamFollowPos = null;
-		}
 		add(camFollowPos);
 
 		FlxG.camera.follow(camFollowPos, LOCKON, 1);
