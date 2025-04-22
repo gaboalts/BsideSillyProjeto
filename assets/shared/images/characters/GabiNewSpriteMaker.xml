@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created with Free texture packer v0.6.7 http://free-tex-packer.com
+-->
+<TextureAtlas imagePath="GabiNewSpriteMaker.png" width="1352" height="1825">
+  <SubTexture name="DanceRight0006.png" x="0" y="0"  width="249" height="369" frameX="-222" frameY="-182" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="DanceRight0004.png" x="249" y="0"  width="228" height="347" frameX="-224" frameY="-205" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="DanceRight0002.png" x="477" y="0"  width="223" height="345" frameX="-223" frameY="-207" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="Left0000.png" x="700" y="0"  width="221" height="329" frameX="-156" frameY="-223" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="Left0005.png" x="921" y="0"  width="216" height="339" frameX="-164" frameY="-213" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="Up0000.png" x="700" y="329"  width="189" height="385" frameX="-233" frameY="-162" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="Up0002.png" x="0" y="369"  width="190" height="379" frameX="-232" frameY="-168" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="Up0005.png" x="190" y="369"  width="189" height="379" frameX="-231" frameY="-169" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="Right0000.png" x="379" y="347"  width="182" height="373" frameX="-237" frameY="-175" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="Right0005.png" x="379" y="720"  width="191" height="372" frameX="-223" frameY="-176" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="Right0002.png" x="0" y="748"  width="189" height="371" frameX="-226" frameY="-176" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="DanceLeft0000.png" x="189" y="748"  width="189" height="367" frameX="-224" frameY="-184" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="Down0000.png" x="1137" y="0"  width="215" height="345" frameX="-216" frameY="-207" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="DanceLeft0008.png" x="889" y="339"  width="189" height="367" frameX="-224" frameY="-184" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="DanceRight0000.png" x="889" y="706"  width="189" height="367" frameX="-224" frameY="-184" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="DanceLeft0006.png" x="889" y="1073"  width="189" height="366" frameX="-222" frameY="-185" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="DanceLeft0004.png" x="889" y="1439"  width="185" height="360" frameX="-215" frameY="-192" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="DanceLeft0002.png" x="0" y="1119"  width="183" height="358" frameX="-212" frameY="-194" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="Down0002.png" x="0" y="1477"  width="207" height="348" frameX="-219" frameY="-204" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="Left0002.png" x="189" y="1115"  width="215" height="336" frameX="-163" frameY="-215" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="Down0005.png" x="404" y="1115"  width="202" height="348" frameX="-221" frameY="-204" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="DanceLeft0001.png" x="189" y="748"  width="189" height="367" frameX="-224" frameY="-184" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="DanceRight0008.png" x="189" y="748"  width="189" height="367" frameX="-224" frameY="-184" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="DanceRight0009.png" x="189" y="748"  width="189" height="367" frameX="-224" frameY="-184" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="DanceRight0010.png" x="189" y="748"  width="189" height="367" frameX="-224" frameY="-184" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="DanceLeft0003.png" x="0" y="1119"  width="183" height="358" frameX="-212" frameY="-194" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="DanceLeft0005.png" x="889" y="1439"  width="185" height="360" frameX="-215" frameY="-192" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="DanceLeft0007.png" x="889" y="1073"  width="189" height="366" frameX="-222" frameY="-185" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="DanceLeft0009.png" x="889" y="339"  width="189" height="367" frameX="-224" frameY="-184" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="DanceLeft0010.png" x="889" y="339"  width="189" height="367" frameX="-224" frameY="-184" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="DanceRight0001.png" x="889" y="706"  width="189" height="367" frameX="-224" frameY="-184" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="DanceRight0003.png" x="477" y="0"  width="223" height="345" frameX="-223" frameY="-207" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="DanceRight0005.png" x="249" y="0"  width="228" height="347" frameX="-224" frameY="-205" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="DanceRight0007.png" x="0" y="0"  width="249" height="369" frameX="-222" frameY="-182" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="Down0001.png" x="1137" y="0"  width="215" height="345" frameX="-216" frameY="-207" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="Down0003.png" x="0" y="1477"  width="207" height="348" frameX="-219" frameY="-204" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="Down0004.png" x="0" y="1477"  width="207" height="348" frameX="-219" frameY="-204" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="Left0001.png" x="700" y="0"  width="221" height="329" frameX="-156" frameY="-223" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="Left0003.png" x="189" y="1115"  width="215" height="336" frameX="-163" frameY="-215" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="Left0004.png" x="189" y="1115"  width="215" height="336" frameX="-163" frameY="-215" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="Right0001.png" x="379" y="347"  width="182" height="373" frameX="-237" frameY="-175" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="Right0003.png" x="0" y="748"  width="189" height="371" frameX="-226" frameY="-176" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="Right0004.png" x="0" y="748"  width="189" height="371" frameX="-226" frameY="-176" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="Up0001.png" x="700" y="329"  width="189" height="385" frameX="-233" frameY="-162" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="Up0003.png" x="0" y="369"  width="190" height="379" frameX="-232" frameY="-168" frameWidth="640" frameHeight="640"/>
+  <SubTexture name="Up0004.png" x="0" y="369"  width="190" height="379" frameX="-232" frameY="-168" frameWidth="640" frameHeight="640"/>
+</TextureAtlas>
