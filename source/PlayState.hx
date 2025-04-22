@@ -25,6 +25,7 @@ import flixel.FlxGame;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.group.FlxSpriteGroup;
 import flixel.FlxSubState;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.effects.FlxTrail;
@@ -171,12 +172,6 @@ class PlayState extends MusicBeatState
 	public var camHUD:FlxCamera;
 	private var camGame:FlxCamera;
 	
-	public static var campaignScore:Int = 0;
-	
-	public static var daPixelZoom:Float = 6;
-
-	public static var offsetTesting:Bool = false;
-
 	var notesHitArray:Array<Date> = [];
 	var currentFrames:Int = 0;
 
@@ -208,7 +203,9 @@ class PlayState extends MusicBeatState
 	var scoreTxt:FlxText;
 	var replayTxt:FlxText;
 
-	public static var campaignScore:Int = 0;
+	public static var campaignScore:Int = 0; // Initialize as required
+    public static var daPixelZoom:Float = 6; // Replace with an appropriate default value
+    public static var offsetTesting:Bool = false; // Replace with an appropriate default value
 
 	var defaultCamZoom:Float = 1.05;
 	
@@ -219,8 +216,6 @@ class PlayState extends MusicBeatState
 	//Achievement shit
 	var boyfriendIdleTime:Float = 0.0;
 	var boyfriendIdled:Bool = false;
-
-	public static var daPixelZoom:Float = 6;
 
 	public static var theFunne:Bool = true;
 	var funneEffect:FlxSprite;
