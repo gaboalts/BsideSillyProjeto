@@ -76,6 +76,14 @@ class Paths
 	{
 		return getPath('data/$key.txt', TEXT, library);
 	}
+	
+	inline static public function formatToSongPath(path:String) {
+		var invalidChars = ~/[~&\\;:<>#]/;
+		var hideChars = ~/[.,'"%?!]/;
+
+		var path = invalidChars.split(path.replace(' ', '-')).join("-");
+		return hideChars.split(path).join("").toLowerCase();
+	}
 
 	inline static public function xml(key:String, ?library:String)
 	{
