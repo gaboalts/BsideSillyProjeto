@@ -2922,25 +2922,27 @@ class PlayState extends MusicBeatState
 	function moveCameraSection():Void {
 		if(SONG.notes[curSection] == null) return;
 
-		if (gf != null && SONG.notes[curSection].gfSection)
+		if (gf != null)
 		{
 			camFollow.set(gf.getMidpoint().x, gf.getMidpoint().y);
 			camFollow.x += gf.cameraPosition[0] + girlfriendCameraOffset[0];
 			camFollow.y += gf.cameraPosition[1] + girlfriendCameraOffset[1];
 			tweenCamIn();
-			callOnLuas('onMoveCamera', ['gf']);
 			return;
 		}
 
 		if (!SONG.notes[curSection].mustHitSection)
 		{
-			moveCamera(true);
-			callOnLuas('onMoveCamera', ['dad']);
+			camFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
+			camFollow.x += dad.cameraPosition[0] + opponentCameraOffset[0];
+			camFollow.y += dad.cameraPosition[1] + opponentCameraOffset[1];
+			tweenCamIn();
 		}
 		else
 		{
-			moveCamera(false);
-			callOnLuas('onMoveCamera', ['boyfriend']);
+			camFollow.set(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
+			camFollow.x -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0];
+			camFollow.y += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1];
 		}
 	}
 
