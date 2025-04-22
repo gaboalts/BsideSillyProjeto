@@ -944,6 +944,7 @@ class PlayState extends MusicBeatState
 		FlxG.worldBounds.set(0, 0, FlxG.width, FlxG.height);
 
 		FlxG.fixedTimestep = false;
+		moveCameraSection();
 
 		if (FlxG.save.data.songPosition) // I dont wanna talk about this code :(
 			{
@@ -2168,71 +2169,8 @@ class PlayState extends MusicBeatState
 				luaModchart.setVar("mustHit",PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection);
 			#end
 
-			if (camFollow.x != dad.getMidpoint().x + 150 && !PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection)
-			{
-				var offsetX = 0;
-				var offsetY = 0;
-				#if windows
-				if (luaModchart != null)
-				{
-					offsetX = luaModchart.getVar("followXOffset", "float");
-					offsetY = luaModchart.getVar("followYOffset", "float");
-				}
-				#end
-				camFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
-				#if windows
-				if (luaModchart != null)
-					luaModchart.executeState('playerTwoTurn', []);
-				#end
-				// camFollow.setPosition(lucky.getMidpoint().x - 120, lucky.getMidpoint().y + 210);
-
-				switch (dad.curCharacter)
-				{
-					case 'mom':
-						camFollow.y = dad.getMidpoint().y;
-					case 'senpai':
-						camFollow.y = dad.getMidpoint().y - 430;
-						camFollow.x = dad.getMidpoint().x - 100;
-					case 'senpai-angry':
-						camFollow.y = dad.getMidpoint().y - 430;
-						camFollow.x = dad.getMidpoint().x - 100;
-				}
-
 				if (dad.curCharacter == 'mom')
 					vocals.volume = 1;
-			}
-
-			if (PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection && camFollow.x != boyfriend.getMidpoint().x - 100)
-			{
-				var offsetX = 0;
-				var offsetY = 0;
-				#if windows
-				if (luaModchart != null)
-				{
-					offsetX = luaModchart.getVar("followXOffset", "float");
-					offsetY = luaModchart.getVar("followYOffset", "float");
-				}
-				#end
-				camFollow.set(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
-
-				#if windows
-				if (luaModchart != null)
-					luaModchart.executeState('playerOneTurn', []);
-				#end
-
-				switch (curStage)
-				{
-					case 'limo':
-						camFollow.x = boyfriend.getMidpoint().x - 300;
-					case 'mall':
-						camFollow.y = boyfriend.getMidpoint().y - 200;
-					case 'school':
-						camFollow.x = boyfriend.getMidpoint().x - 200;
-						camFollow.y = boyfriend.getMidpoint().y - 200;
-					case 'schoolEvil':
-						camFollow.x = boyfriend.getMidpoint().x - 200;
-						camFollow.y = boyfriend.getMidpoint().y - 200;
-				}
 			}
 		}
 
@@ -2286,7 +2224,7 @@ class PlayState extends MusicBeatState
 			vocals.stop();
 			FlxG.sound.music.stop();
 
-			openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+			openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x - boyfriend.positionArray[0], boyfriend.getScreenPosition().y - boyfriend.positionArray[1], camFollowPos.x, camFollowPos.y));
 
 			#if windows
 			// Game Over doesn't get his own variable because it's only used here
@@ -2679,8 +2617,10 @@ class PlayState extends MusicBeatState
 
 					FlxTransitionableState.skipNextTransIn = true;
 					FlxTransitionableState.skipNextTransOut = true;
+					
 					prevCamFollow = camFollow;
-
+					prevCamFollowPos = camFollowPos;
+					
 					PlayState.SONG = Song.loadFromJson(nextSongLowercase + difficulty, PlayState.storyPlaylist[0]);
 					FlxG.sound.music.stop();
 
@@ -2982,6 +2922,69 @@ class PlayState extends MusicBeatState
 			curSection += 1;
 			}
 		}
+	
+	function moveCameraSection():Void {
+		if(SONG.notes[curSection] == null) return;
+
+		if (gf != null && SONG.notes[curSection].gfSection)
+		{
+			camFollow.set(gf.getMidpoint().x, gf.getMidpoint().y);
+			camFollow.x += gf.cameraPosition[0] + girlfriendCameraOffset[0];
+			camFollow.y += gf.cameraPosition[1] + girlfriendCameraOffset[1];
+			tweenCamIn();
+			callOnLuas('onMoveCamera', ['gf']);
+			return;
+		}
+
+		if (!SONG.notes[curSection].mustHitSection)
+		{
+			moveCamera(true);
+			callOnLuas('onMoveCamera', ['dad']);
+		}
+		else
+		{
+			moveCamera(false);
+			callOnLuas('onMoveCamera', ['boyfriend']);
+		}
+	}
+
+	var cameraTwn:FlxTween;
+	public function moveCamera(isDad:Bool)
+	{
+		if(isDad)
+		{
+			camFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
+			camFollow.x += dad.cameraPosition[0] + opponentCameraOffset[0];
+			camFollow.y += dad.cameraPosition[1] + opponentCameraOffset[1];
+			tweenCamIn();
+		}
+		else
+		{
+			camFollow.set(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
+			camFollow.x -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0];
+			camFollow.y += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1];
+
+			if (Paths.formatToSongPath(SONG.song) == 'tutorial' && cameraTwn == null && FlxG.camera.zoom != 1)
+			{
+				cameraTwn = FlxTween.tween(FlxG.camera, {zoom: 1}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.elasticInOut, onComplete:
+					function (twn:FlxTween)
+					{
+						cameraTwn = null;
+					}
+				});
+			}
+		}
+	}
+	
+	function tweenCamIn() {
+		if (Paths.formatToSongPath(SONG.song) == 'tutorial' && cameraTwn == null && FlxG.camera.zoom != 1.3) {
+			cameraTwn = FlxTween.tween(FlxG.camera, {zoom: 1.3}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.elasticInOut, onComplete:
+				function (twn:FlxTween) {
+					cameraTwn = null;
+				}
+			});
+		}
+	}
 		
 	function snapCamFollowToPos(x:Float, y:Float) {
 	camFollow.set(x, y);
