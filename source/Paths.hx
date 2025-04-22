@@ -4,8 +4,6 @@ import flixel.FlxG;
 import flixel.graphics.frames.FlxAtlasFrames;
 import openfl.utils.AssetType;
 import openfl.utils.Assets as OpenFlAssets;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.graphics.FlxGraphic;
 
 class Paths
 {
@@ -120,10 +118,10 @@ class Paths
 			}
 		return 'songs:assets/songs/${songLowercase}/Inst.$SOUND_EXT';
 	}
-
-	inline static public function image(key:String, ?library:String)
-	{
-		return getPath('images/$key.png', IMAGE, library);
+	
+	inline static public function image(key:String, ?library:String):FlxGraphic {
+    var imagePath = getPath('images/$key.png', IMAGE, library);
+    return FlxG.bitmap.add(imagePath);
 	}
 
 	inline static public function font(key:String)
@@ -141,25 +139,7 @@ class Paths
 	
 	static public function getTextFromFile(key:String, ?ignoreMods:Bool = false):String
 	{
-		return Assets.getText(getPath(key, TEXT));
-	}
-	
-	// completely rewritten asset loading? fuck!
-	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
-	public static function returnGraphic(key:String, ?library:String) {
-		var path = getPath('images/$key.png', IMAGE, library);
-		//trace(path);
-		if (OpenFlAssets.exists(path, IMAGE)) {
-			if(!currentTrackedAssets.exists(path)) {
-				var newGraphic:FlxGraphic = FlxG.bitmap.add(path, false, path);
-				newGraphic.persist = true;
-				currentTrackedAssets.set(path, newGraphic);
-			}
-			localTrackedAssets.push(path);
-			return currentTrackedAssets.get(path);
-		}
-		trace('oh no its returning null NOOOO');
-		return null;
+		return OpenFlAssets.getText(getPath(key, TEXT));
 	}
 
 	inline static public function getSparrowAtlas(key:String, ?library:String)
