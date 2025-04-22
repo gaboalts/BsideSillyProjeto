@@ -47,6 +47,7 @@ class Option
 	}
 	private var description:String = "";
 	private var display:String;
+	public static var offsetTesting:Bool = false;
 	private var acceptValues:Bool = false;
 	public final function getDisplay():String
 	{

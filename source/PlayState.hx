@@ -159,7 +159,6 @@ class PlayState extends MusicBeatState
 	private var totalPlayed:Int = 0;
 	private var ss:Bool = false;
 
-
 	private var healthBarBG:FlxSprite;
 	private var healthBar:FlxBar;
 	private var songPositionBar:Float = 0;
@@ -171,6 +170,10 @@ class PlayState extends MusicBeatState
 	public var iconP2:HealthIcon; //what could go wrong?
 	public var camHUD:FlxCamera;
 	private var camGame:FlxCamera;
+	
+	public static var campaignScore:Int = 0;
+	
+	public static var daPixelZoom:Float = 6;
 
 	public static var offsetTesting:Bool = false;
 
