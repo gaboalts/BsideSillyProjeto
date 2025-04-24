@@ -70,6 +70,8 @@ class PlayState extends MusicBeatState
 {
 	public static var instance:PlayState = null;
 	
+	private var isCameraOnForcedPos:Bool = false;
+	
 	#if (haxe >= "4.0.0")
 	public var boyfriendMap:Map<String, Boyfriend> = new Map();
 	public var dadMap:Map<String, Character> = new Map();
@@ -2811,9 +2813,7 @@ class PlayState extends MusicBeatState
 			rating.updateHitbox();
 	
 			currentTimingShown.cameras = [camHUD];
-			comboSpr.cameras = [camHUD];
-			rating.cameras = [camHUD];
-
+			
 			var seperatedScore:Array<Int> = [];
 	
 			var comboSplit:Array<String> = (combo + "").split('');
@@ -2840,8 +2840,7 @@ class PlayState extends MusicBeatState
 				numScore.screenCenter();
 				numScore.x = rating.x + (43 * daLoop) - 50;
 				numScore.y = rating.y + 100;
-				numScore.cameras = [camHUD];
-
+				
 				if (!isPixelStage)
 				{
 					numScore.antialiasing = true;
@@ -3538,6 +3537,14 @@ class PlayState extends MusicBeatState
 		if (generatedMusic)
 		{
 			notes.sort(FlxSort.byY, (FlxG.save.data.downscroll ? FlxSort.ASCENDING : FlxSort.DESCENDING));
+		}
+		
+		if (SONG.notes[curSection] != null)
+		{
+			if (generatedMusic && !endingSong && !isCameraOnForcedPos)
+			{
+				moveCameraSection();
+			}
 		}
 
 		#if windows
