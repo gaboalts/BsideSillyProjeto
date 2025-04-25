@@ -247,18 +247,6 @@ class PlayState extends MusicBeatState
 	public function addObject(object:FlxBasic) { add(object); }
 	public function removeObject(object:FlxBasic) { remove(object); }
 
-	
-	// obrigado youtube
-	var cOffsetX:Float = 0;
-	var cOffsetY:Float = 0;
-	var cDOffsetX:Float = 0;
-	var cDOffsetY:Float = 0;
-
-	var negOff:Float = -0.4;
-	var posOff:Float = 0.4;
-
-	var tiltStrength:Float = 0.3;
-
 	override public function create()
 	{
 		instance = this;
@@ -908,32 +896,27 @@ class PlayState extends MusicBeatState
 
 		// add(strumLine);
 
-		camFollow = new FlxPoint();
-		camFollowPos = new FlxObject(0, 0, 1, 1);
+		camFollow = new FlxObject(0, 0, 1, 1);
 
-		snapCamFollowToPos(camPos.x, camPos.y);
+		camFollow.setPosition(camPos.x, camPos.y);
+
 		if (prevCamFollow != null)
 		{
 			camFollow = prevCamFollow;
 			prevCamFollow = null;
 		}
-		if (prevCamFollowPos != null)
-		{
-			camFollowPos = prevCamFollowPos;
-			prevCamFollowPos = null;
-		}
-		add(camFollowPos);
 
-		FlxG.camera.follow(camFollowPos, LOCKON, 1);
+		add(camFollow);
+
+		FlxG.camera.follow(camFollow, LOCKON, 0.04 * (30 / (cast (Lib.current.getChildAt(0), Main)).getFPS()));
 		// FlxG.camera.setScrollBounds(0, FlxG.width, 0, FlxG.height);
 		FlxG.camera.zoom = defaultCamZoom;
-		FlxG.camera.focusOn(camFollow);
+		FlxG.camera.focusOn(camFollow.getPosition());
 
 		FlxG.worldBounds.set(0, 0, FlxG.width, FlxG.height);
 
 		FlxG.fixedTimestep = false;
-		moveCameraSection();
-
+		
 		if (FlxG.save.data.songPosition) // I dont wanna talk about this code :(
 			{
 				songPosBG = new FlxSprite(0, 10).loadGraphic(Paths.image('healthBar'));
@@ -2172,7 +2155,8 @@ class PlayState extends MusicBeatState
 					offsetY = luaModchart.getVar("followYOffset", "float");
 				}
 				#end
-				camFollow.setPosition(stageData.camera_opponent);
+				camFollow.x += dad.cameraPosition[0] + opponentCameraOffset[0];
+			    camFollow.y += dad.cameraPosition[1] + opponentCameraOffset[1];
 				#if windows
 				if (luaModchart != null)
 					luaModchart.executeState('playerTwoTurn', []);
@@ -2194,7 +2178,8 @@ class PlayState extends MusicBeatState
 					offsetY = luaModchart.getVar("followYOffset", "float");
 				}
 				#end
-				camFollow.setPosition(stageData.camera_boyfriend);
+				camFollow.x -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0];
+				camFollow.y += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1];
 
 				#if windows
 				if (luaModchart != null)
@@ -2435,27 +2420,6 @@ class PlayState extends MusicBeatState
 						#end
 
 						dad.holdTimer = 0;
-						
-						if (!note.isSustainNote) {
-					switch (note.noteData) {
-						case 0:
-							cOffsetX = negOff; 
-							cOffsetY = 0; 
-							camtiltonHit(0);
-						case 1:
-							cOffsetX = 0; 
-							cOffsetY = posOff;
-							camtiltonHit(3);
-						case 2:
-							cOffsetY = negOff; 
-							cOffsetX = 0; 
-							camtiltonHit(3);
-						case 3:
-							cOffsetY = 0;
-							cOffsetX = posOff;  
-							camtiltonHit(1);
-					}
-				}
 	
 						if (SONG.needsVoices)
 							vocals.volume = 1;
@@ -2538,15 +2502,6 @@ class PlayState extends MusicBeatState
 		if (FlxG.keys.justPressed.ONE)
 			endSong();
 		#end
-		
-		if (!SONG.notes[curSection].mustHitSection) {
-			camFollowPos.x += cDOffsetX;
-			camFollowPos.y += cDOffsetY;
-		}
-		else {
-			camFollowPos.x += cOffsetX;
-			camFollowPos.y += cOffsetY;	
-		}
 	}
 
 	function endSong():Void
@@ -3390,27 +3345,6 @@ class PlayState extends MusicBeatState
 						}
 					});
 					
-					if (!note.isSustainNote) {
-					switch (note.noteData) {
-						case 0:
-							cOffsetX = negOff; 
-							cOffsetY = 0; 
-							camtiltonHit(0);
-						case 1:
-							cOffsetX = 0; 
-							cOffsetY = posOff;
-							camtiltonHit(3);
-						case 2:
-							cOffsetY = negOff; 
-							cOffsetX = 0; 
-							camtiltonHit(3);
-						case 3:
-							cOffsetY = 0;
-							cOffsetX = posOff;  
-							camtiltonHit(1);
-					}
-				}
-					
 					note.wasGoodHit = true;
 					vocals.volume = 1;
 		
@@ -3421,39 +3355,6 @@ class PlayState extends MusicBeatState
 					updateAccuracy();
 				}
 			}
-			
-	var umtween:FlxTween;
-	var umtween2:FlxTween;
-
-	function camtiltonHit(minusplus)  {
-		var val:Float = 0;
-
-		switch (minusplus) {
-			case 0:
-				val = tiltStrength;
-			case 1:
-				val = -tiltStrength;
-			case 3:
-				val = 0;
-		}
-		if (!isPixelStage) {
-			if (umtween != null) {
-				umtween.cancel();
-			}
-				umtween = FlxTween.tween(camGame, {angle: val},Conductor.crochet/600, {ease: FlxEase.backOut, onComplete: function (twn:FlxTween) {
-				umtween = null;
-			}});	
-		}
-		else if (isPixelStage) {
-			if (umtween != null) {
-				umtween.cancel();
-			}
-				umtween = FlxTween.tween(camGame, {angle: val},Conductor.crochet/600, {ease: FlxEase.backOut, onComplete: function (twn:FlxTween) {
-				umtween = null;
-			}});	
-		}
-	}
-		
 
 	var fastCarCanDrive:Bool = true;
 
