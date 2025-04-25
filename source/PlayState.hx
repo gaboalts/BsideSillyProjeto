@@ -2146,7 +2146,7 @@ class PlayState extends MusicBeatState
 				luaModchart.setVar("mustHit",PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection);
 			#end
 			
-			if (!PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection)
+			if (camFollow.x != dad.getMidpoint().x + 150 && !PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection)
 			{
 				var offsetX = 0;
 				var offsetY = 0;
@@ -2157,8 +2157,9 @@ class PlayState extends MusicBeatState
 					offsetY = luaModchart.getVar("followYOffset", "float");
 				}
 				#end
-				camFollow.x += dad.cameraPosition[0] + opponentCameraOffset[0];
-			    camFollow.y += dad.cameraPosition[1] + opponentCameraOffset[1];
+				camFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
+		    	camFollow.x += dad.cameraPosition[0] + opponentCameraOffset[0];
+		    	camFollow.y += dad.cameraPosition[1] + opponentCameraOffset[1];
 				#if windows
 				if (luaModchart != null)
 					luaModchart.executeState('playerTwoTurn', []);
@@ -2180,8 +2181,9 @@ class PlayState extends MusicBeatState
 					offsetY = luaModchart.getVar("followYOffset", "float");
 				}
 				#end
-				camFollow.x -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0];
-				camFollow.y += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1];
+				camFollow.set(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
+	 	   	camFollow.x -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0];
+	   	 	camFollow.y += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1];
 
 				#if windows
 				if (luaModchart != null)
