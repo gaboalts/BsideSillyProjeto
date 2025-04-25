@@ -792,6 +792,8 @@ class PlayState extends MusicBeatState
 		add(gfGroup);
 		add(dadGroup);
 		add(boyfriendGroup);
+		
+		var camPos:FlxPoint = new FlxPoint(opponentCameraOffset[0], opponentCameraOffset[1]);
 
 		// REPOSITIONING PER STAGE
 		switch (curStage)
